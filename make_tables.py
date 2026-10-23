@@ -131,9 +131,9 @@ def main():
         "Different hardware than the paper.\n\n" + runtime_table(runs),
     ]
     OUT.mkdir(exist_ok=True)
-    (OUT / "results.md").write_text("\n\n".join(sections) + "\n")
-    documented.to_csv(OUT / "scores.csv", index=False)
-    print((OUT / "results.md").read_text())
+    (OUT / "results.md").write_text("\n\n".join(sections) + "\n", encoding="utf-8")
+    documented.to_csv(OUT / "scores.csv", index=False, encoding="utf-8")
+    print((OUT / "results.md").read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

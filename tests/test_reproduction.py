@@ -33,6 +33,17 @@ def test_fahes_runs_every_module_on_an_official_data_file():
     assert ("Diastolic blood pressure", canon_value("0")) in as_set(run_fahes(path, "all")[0])
 
 
+def test_fahes_accepts_input_paths_with_spaces(tmp_path):
+    source, _ = D.paper_example("pima")
+    folder = tmp_path / "input files"
+    folder.mkdir()
+    path = folder / "pima data.csv"
+    path.write_bytes(source.read_bytes())
+    expected, _ = run_fahes(source, "all")
+    actual, _ = run_fahes(path, "all")
+    pd.testing.assert_frame_equal(actual, expected)
+
+
 def test_macro_and_pooled_scores_use_different_denominators():
     runs = pd.DataFrame([
         {"hits": 1, "reported": 1, "truth": 1, "precision": 1.0, "recall": 1.0},

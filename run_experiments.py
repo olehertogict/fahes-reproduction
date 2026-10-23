@@ -20,7 +20,7 @@ RUNTIME_REPETITIONS = 5
 
 
 def write(path, rows, fields):
-    with path.open("w", newline="") as f:
+    with path.open("w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=fields)
         writer.writeheader()
         writer.writerows(rows)
