@@ -39,3 +39,18 @@ This downloads the datasets, builds FAHES, runs the tests and all 61 experiments
 
 A full run can take tens of minutes, depending on the machine. Timings vary with hardware
 and system load. Running the command again overwrites the generated results.
+
+## Manual fallback
+
+If the script does not work, run these commands one at a time from the `fahes-reproduction`
+folder. They work in Bash, PowerShell and Command Prompt. The same prerequisites apply;
+stop if a command reports an error.
+
+```text
+git submodule update --init
+uv sync --locked
+uv run --locked python -c "from pathlib import Path; import shutil; p = Path('build/fahes'); shutil.rmtree(p) if p.exists() else None"
+uv run --locked python -X utf8 -m pytest -q
+uv run --locked python -X utf8 run_experiments.py
+uv run --locked python -X utf8 make_tables.py
+```
